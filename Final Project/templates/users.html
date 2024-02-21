@@ -1,0 +1,120 @@
+{% block content %}
+<html>
+    <head>
+        <title>Stocker</title>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            #main{
+                color:white; 
+                border-radius: 25px; 
+                text-align: center; 
+                border:1px solid #3AAFA9;
+                padding: 20px;
+                font-size: 19px;
+            }
+            #submit{
+                background-color: #3AAFA9;
+                color: #17252A;
+            }
+            input, input:focus{
+                border-color: #51f4ec;
+                border-radius: 5px;
+                background-color: transparent;
+                color: white;
+            }
+            #submit:hover{
+                animation: float;
+                animation-duration: 0.1s;
+                animation-fill-mode: forwards;
+                animation-timing-function: ease-out;
+            }
+            @keyframes float{
+                0% {
+                transform: translateY(0);
+                }
+                100% {
+                transform: translateY(-3px);
+                }
+            }
+            .slideUp {
+                animation: slideUp;
+                animation-duration: 1s;
+            }
+            @keyframes slideUp {
+                0% {
+                transform: translateY(+50%);
+                }
+                100% {
+                transform: translateY(0);
+                }
+            }
+            td{
+                border: 1px solid #3AAFA9;
+                padding: 5px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body style="background-color: #17252A; color: white">
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-md-8 offset-md-2"> 
+                    <div class="slideUp" id="main">
+                        <h2> Users </h2>
+                        <br><br>
+                        <form action="{% url 'users' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="Submit" name="submit" id="submit" value="Ping API">
+                        </form>
+                        <br>
+                        <table align="center">
+                            {% if all or unique%}
+                                {% if all %}
+                                    {% for name, stocks in all.items %}
+                                    <table align="center">
+                                    <tr>
+                                        <td colspan="2"> User id:- {{ name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"> Stocks:-</td>
+                                    </tr>
+                                        {% for key, value in stocks.items %}
+                                            <tr>
+                                                <td>{{ key }}</td>
+                                                <td>{{ value }}</td>
+                                            </tr>
+                                        {% endfor %}                                
+                                    </table>
+                                    <br><br>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if unique %}
+                                    Unique Stocks:- 
+                                    {% for ele, price in unique.items %}
+                                        {{ ele }},
+                                    {% endfor %}
+                                    <br><br>
+                                {% endif %}
+                                <!--{% if result %}
+                                    <br>{{ result }}
+                                {% endif %}-->
+                            {% else %}
+                                    No users to display<br>
+                            {% endif %}  
+                        
+
+
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </body>
+</html>
+
+{% endblock content %}

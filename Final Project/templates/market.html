@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Stocker</title>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+            function toggleDiv() {
+                var div = document.getElementById("toggle");
+                if (div.style.display === "none") {
+                    div.style.display = "block";
+                    div.classList.add("slideUp");
+                } else {
+                    div.style.display = "none";
+                }
+            }
+        </script>
+        <style>
+            .slideUp {
+                animation: slideUp;
+                animation-duration: 1s;
+            }
+            @keyframes slideUp {
+                0% {
+                transform: translateY(+50%);
+                }
+                100% {
+                transform: translateY(0);
+                }
+            }
+            #submit{
+                background-color: #3AAFA9;
+                color: #17252A;
+            }
+            input, input:focus{
+                border-color: #51f4ec;
+                border-radius: 5px;
+                background-color: transparent;
+                color: white;
+            }
+            #submit:hover{
+                animation: float;
+                animation-duration: 0.1s;
+                animation-fill-mode: forwards;
+                animation-timing-function: ease-out;
+            }
+            @keyframes float{
+                0% {
+                transform: translateY(0);
+                }
+                100% {
+                transform: translateY(-3px);
+                }
+            }
+            #toggle{
+                display: none;
+                border: 1px solid #51f4ec;
+                border-radius: 25px;
+                padding: 15px;
+                text-align: justify;
+            }
+            #highlight{
+                color: #51f4ec;
+                text-decoration: underline;
+            }
+            #main{
+                border: 1px solid #51f4ec;
+                border-radius: 15px;
+                padding: 15px;
+            }
+            #success{
+                background-color: transparent;
+                color: #51f4ec;
+                border-radius: 5px;
+                height: 50px;
+                text-align:center;
+                line-height: 50px;
+                font-decoration: bold; 
+                font-size: 20px;
+                animation: slideDown;
+                animation-duration: 1s;
+                border: 2px solid #3AAFA9;
+            }
+            @keyframes slideDown {
+                0% {
+                transform: translateY(-100%);
+                }
+                100% {
+                transform: translateY(0);
+                }
+            }
+            #error{
+                background-color: transparent;
+                color: #FF0000;
+                border-radius: 5px;
+                text-align:center;
+                font-decoration: bold; 
+                font-size: 20px;
+                border: 1px solid #FF0000;
+                padding: 10px;
+            }
+            #info{
+                background-color: transparent;
+                color: #FF0000;
+                border-radius: 5px;
+                height: 50px;
+                text-align:center;
+                line-height: 50px;
+                font-decoration: bold; 
+                font-size: 20px;
+                animation: slideDown;
+                animation-duration: 1s;
+                border: 2px solid #FF0000;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container" style="text-align: center; color: white; font-size:18px">
+            <br><br>
+            <div id="main" class="slideUp"><br>
+                <h2> Market </h2>
+                <br><br>
+                Enter the stock ticker symbol of the desired stock below and add it to your stocklist
+                <br><br>
+                <form action="{% url 'market' %}" method="POST" name="market_place">
+                    {% csrf_token %}
+                    Ticker Symbol: <input type="text" name="sym" required>
+                    <br><br>
+                    <input type="Submit" name="submit" value="Add to stocklist" id="submit">
+                </form>
+                {% for msg in messages %}
+                    <div class="row">
+                        {% if msg.tags == 'info'%}
+                            <div class="col-md-6 offset-md-3" id="info">
+                                {{msg}}
+                            </div>
+                        {% elif msg.tags == 'success'%}
+                            <div class="col-md-6 offset-md-3" id="success">
+                                {{msg}}
+                            </div>
+                        {% elif msg.tags == 'error'%}
+                        <div class="col-md-6 offset-md-3" id="error">
+                            {{msg}}
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <br>
+            <div id="main"  class="slideUp">
+                <br>Do not know the Ticker Symbol for your Stock? :-<br><br> 
+                <a href="https://www.investing.com/" target="_blank">
+                    <form target="_Blank">{% csrf_token %}<input type="button" id="submit" onclick="investing()" value="Search Ticker Symbol"></form>
+                </a>
+                <br>
+                Want to know more about Ticker Symbols? :- <br><br><form>{% csrf_token %}<input type="button" id="submit" onclick="toggleDiv()" value="Toggle Info"></form>
+            </div>
+            <br>
+            <div id="toggle">
+                <br>
+                What they stand for:-<br> A stock ticker symbol is a <b id="highlight">unique series of letters</b> that represents a publicly traded company's stock on a particular stock exchange. Each company listed on a stock exchange has a unique ticker symbol, which serves as a shorthand way to <b id="highlight">identify the company</b> in financial news, stock quotes, and trading platforms.<br><br>
+
+                The Format:-<br> Ticker symbols are typically short and easy to remember, consisting of one to <b id="highlight">four letters</b>, although some ticker symbols may include a fifth letter to indicate a specific type of security or to differentiate between multiple listings for the same company on different stock exchanges.<br><br>
+
+                For example:-<br> the ticker symbol for <b id="highlight">Apple Inc. is AAPL</b>, while the ticker symbol for <b id="highlight">Ford Motor Company is F</b>. The uniqueness of the ticker symbol is important because it helps prevent confusion between different companies and their stocks. So, if you're interested in investing in a particular company, be sure to use its <b id="highlight">correct</b> ticker symbol when placing trades or researching its financial performance i.e live rate of stocks.<br><br>
+                
+                
+            </div>
+
+        </div>
+    </body>
+</html>
+
+{% endblock content %}

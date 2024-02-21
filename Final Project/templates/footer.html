@@ -1,0 +1,38 @@
+{% load static %} 
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+        </style>
+        <script>
+            function stocks()
+            {
+                window.location.href ="{% url 'stocks' %}";
+            }
+        </script>
+    </head>
+    <body style="background-color:#17252A; color: white">
+        <div class="container">
+            <div>
+                <br><br>
+                <img src="{% static 'secondhalf.png' %}" width="100%">
+            </div>
+            <br>
+            <hr style="border: 1px solid white">
+            <br>
+            <div style="text-align:center; color: #3AAFA9">
+                <img class="center" src="{% static 'Stocker.png' %}" style="cursor:pointer; height:5%; width:12%" onclick="stocks()">
+                <br><br>
+            </div>
+        </div>
+    </body>
+</html>

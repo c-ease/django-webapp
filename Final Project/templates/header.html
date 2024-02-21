@@ -1,0 +1,67 @@
+{% load static %} 
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+            function over(x)
+            {
+                x.style.backgroundColor="#3AAFA9";
+                x.style.color = "white";
+            }
+            function out(x)
+            {
+                x.style.backgroundColor="transparent";
+                x.style.color = "#51f4ec";
+            }
+            function stocks()
+            {
+                window.location.href ="{% url 'stocks' %}";
+            }
+            function market()
+            {
+                window.location.href = "{% url 'market' %}";
+            }
+            function profile()
+            {
+                window.location.href = "{% url 'profile' %}";
+            }
+            function home()
+            {
+                window.location.href = "{% url 'home' %}";
+            }
+        </script>
+    </head>
+    <body style="background-color:#17252A; color: white">
+        <div class="container">
+            <div>
+                <br><br>
+                <img src="{% static 'halfbgcircuit.png' %}" width="100%">
+            </div>
+            <div class="row" style="text-align:center; font-size:22px; color: #51f4ec">
+                <div class="col offset-md-5">
+                    <div class="slideUp" align="left" style="text-align:center; width:70%; cursor:pointer;" onmouseover="over(this)"  onmouseout="out(this)" onclick="stocks()">
+                        Stocks
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="slideUp" style="width:75%; cursor:pointer;" onmouseover="over(this)" onclick="market()" onmouseout="out(this)">
+                        Market    
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="slideUp" style="width:75%; cursor:pointer;" onmouseover="over(this)" onmouseout="out(this)" onclick="profile()">
+                        Profile
+                    </div>
+                </div>
+                <div class="col" style="text-align:right">
+                    <div align="right" class="slideUp" style="text-align:center; width:90%; cursor:pointer;" onmouseover="over(this)" onmouseout="out(this)" onclick="home()">
+                        Log out
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

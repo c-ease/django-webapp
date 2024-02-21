@@ -1,0 +1,222 @@
+{% load static %} 
+<html>
+    <head>
+        <title>
+            Stocker
+        </title>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            #header
+            {
+                width:100%;  
+                color:#51f4ec;
+                font-size: 25;
+                font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
+            #panel
+            {
+                text-align: center;
+                border: 2px solid #3AAFA9;
+                box-shadow: 5px 5px 5px #3AAFA9;
+                border-radius: 25px;
+                transition: all 0.2s;
+                color: white;
+                padding:10px;
+            }
+            #panel:hover {
+                box-shadow: 10px 10px 10px #51f4ec;
+                animation: float;
+                animation-duration: 1s;
+                animation-fill-mode: forwards;
+            }
+            @keyframes float{
+                0% {
+                transform: translateY(0);
+                }
+                100% {
+                transform: translateY(-5px);
+                }
+            }            
+            .main
+            {
+                height: 200px;
+                text-align: center;
+                color: white;
+                background-image: url({% static 'bgcircuit.png' %});
+                background-size:contain;
+                width: 100%;
+                height: 400px;
+                background-repeat: no-repeat;
+            }
+            .highlight{
+                color: #3AAFA9;
+                text-decoration: none;
+            }
+            .slideUp {
+                animation: slideUp;
+                animation-duration: 1s;
+            }
+            @keyframes slideUp {
+                0% {
+                transform: translateY(+100%);
+                }
+                100% {
+                transform: translateY(0);
+                }
+            }
+            .slideDown{
+                animation: slideDown;
+                animation-duration: 1s;
+            }
+            @keyframes slideDown {
+                0% {
+                transform: translateY(-100%);
+                }
+                100% {
+                transform: translateY(0);
+                }
+            }
+            .slideLeft{
+                animation: slideLeft;
+                animation-duration: 1.5s;
+                animation-fill-mode: forwards;
+            }
+            @keyframes slideLeft {
+                0% {
+                transform: translateX(+100%);
+                }
+                100% {
+                transform: translateX(0);
+                }
+            }
+            .slideRight{
+                animation: slideRight;
+                animation-duration: 1.5s;
+                animation-fill-mode: forwards;
+            }
+            @keyframes slideRight {
+                0% {
+                transform: translateX(-100%);
+                }
+                100% {
+                transform: translateX(0);
+                }
+            }                        
+            .box {
+                animation: drop-in;
+                animation-duration: 1000ms;
+            }                       
+            @keyframes drop-in {
+                from {
+                transform:
+                    rotate(-30deg) translateY(-100%);
+                opacity: 0;
+                }
+                to {
+                transform:
+                    rotate(0deg) translateY(0%);
+                opacity: 1;
+                }
+            }
+
+        </style>
+        <script>
+            function over(x)
+            {
+                x.style.backgroundColor="#3AAFA9";
+                x.style.color = "white";
+            }
+            function out(x)
+            {
+                x.style.backgroundColor="transparent";
+                x.style.color = "#51F4ec";
+            }
+            function signup()
+            {
+                window.location.href ="{% url 'signup' %}";
+            }
+            function login()
+            {
+                window.location.href = "{% url 'log_in' %}";
+            }
+            function home()
+            {
+                window.location.href = "{% url 'home' %}";
+            }
+        </script>
+    </head>
+    <!--'Segoe UI', Tahoma, Geneva, Verdana, sans-serif-->
+    <body style="background-color:#17252A; color: white" >
+        <div class="container">
+        <br><br>
+            <div class="row" id="header">
+                <div class="col-md-9" >
+                    <div class="box" style="width:20%; cursor:pointer;" onclick="home()">Stocker</div>
+                </div>
+                <div class="col col-offset-10">
+                    <div class="slideUp" style="text-align:center; width:70%; cursor:pointer;" onmouseover="over(this)" onclick="login()" onmouseout="out(this)">
+                    Login    
+                    </div>
+                </div>
+                <div class="col">
+                <div class="slideUp" style="text-align:center; width:100%; cursor:pointer;" onmouseover="over(this)" onmouseout="out(this)" onclick="signup()">
+                    Sign Up
+                </div>
+                </div>
+            </div>
+            <br><br><br>
+            <div class="main">
+                <div class="slideLeft">
+                    <br><br><br><br><br>
+                    <img src="{% static 'Stocker.png' %}" style="height:50px; width:25%"><br>
+                </div>
+                <div class="slideRight">
+                    Stalk your Stocks
+                </div>
+            </div>
+            <br>
+            <div class="row" style="column-gap: 10px;">
+                <div class="col"><div id="panel">
+                    <br>
+                    <i class="fa fa-newspaper-o fa-2x" aria-hidden="true"></i>
+                    <br><br> One click destination to know real-time prices of all your favourite Stocks. <br><br>
+                </div></div>
+                <div class="col"><div id="panel">
+                    <br>
+                    <i class="fa fa-globe fa-2x" aria-hidden="true"></i>
+                    <br><br> Access and monitor all sorts and types of Ticker Symbols exixting round the globe. <br><br>
+                </div></div>
+                <div class="col"><div id="panel">
+                    <br>
+                    <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i>
+                    <br><br> User friendly Interface i.e <br>pick from the Market tab and monitor under the Stocks one.<br><br>
+                </div></div>
+                <div class="col"><div id="panel" on>
+                    <br>
+                    <i class="fa fa-refresh fa-2x" aria-hidden="true"></i>
+                    <br><br> Data updated frequent enough to cover all the ups and downs of market.<br><br>
+                </div></div>            
+            </div>
+            <br>
+            <div style="padding:30px; color:white; font-size: 20px; text-align: justify;"><br>
+                Welcome to <b class="highlight">Stocker</b>, your ultimate destination for tracking the latest stock prices!<br><br>
+
+We understand that keeping track of your favorite stocks can be a <b class="highlight">hassle</b>, which is why we have designed our website to make it easy and convenient to <b class="highlight">search for the stocks</b> you are interested in and monitor them by adding them to <b class="highlight">your stocklist.</b><br><br>
+
+Our website also offers a range of tools and features to help you <b class="highlight">analyze the stock market</b> and stay informed. From real-time price updates to the <b class="highlight">change %</b> in the stock value, we provide you with everything you need to stay ahead of the game.<br><br>
+
+So whether you're a <b class="highlight">seasoned investor</b> or <b class="highlight">just getting started</b>, <b class="highlight">Stocker</b> is the perfect platform for anyone looking to track stock prices and make smart investment decisions. Sign up today and start monitoring your favorite stocks <b class="highlight"> <br>like a pro</b>!
+            </div>
+            <br><br>
+            <hr style="border: 1px solid white">
+            <br>
+            <div style="text-align:center; color: #3AAFA9">
+                <img class="center" src="{% static 'Stocker.png' %}" style="cursor:pointer; height:5%; width:12%" onclick="home()">
+                <br><br>
+            </div>
+        </div>
+    </body>
+</html>
